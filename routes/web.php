@@ -1,8 +1,11 @@
 <?php
 
-use App\Http\Controllers\admin\AdminLoginController;
-use App\Http\Controllers\admin\HomeController;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+use App\Http\Controllers\admin\HomeController;
+use App\Http\Controllers\admin\CategoryController;
+use App\Http\Controllers\admin\AdminLoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +39,28 @@ Route::group(['prefix' => 'admin'], function () {
         Route::controller(HomeController::class)->group(function () {
             Route::get('/dashboard', 'index')->name('admin.dashboard');
             Route::get('/logout', 'logout')->name('admin.logout');
+        });
 
+        // Category
+
+        Route::controller(CategoryController::class)->group(function () {
+            Route::get('/categories', 'index')->name('category.index');
+            Route::get('/categories/create', 'create')->name('category.create');
+            Route::post('/categories', 'store')->name('category.store');
+            Route::get('/categories/edit/:{id}', 'edit')->name('category.edit');
+            Route::put('/categories/update', 'update')->name('category.update');
+            Route::delete('/categories/destroy', 'destroy')->name('category.destroy');
         });
     });
+    // get slug
+    Route::get('/getSlug', function (Request $request) {
+        $slug = '';
+        if (!empty($request->title)) {
+            $slug = Str::slug($request->title);
+        }
+        return response()->json([
+            'status' => true,
+            'slug' => $slug
+        ]);
+    })->name('getSlug');//end method;
 });
