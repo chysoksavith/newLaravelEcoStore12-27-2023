@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\TempImage;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
@@ -36,7 +39,30 @@ class CategoryController extends Controller
             $category->slug = $request->slug;
             $category->status = $request->status;
             $category->save();
+            // save image
+            if (!empty($request->image_id)) {
+                $temImage = TempImage::find($request->image_id);
+                $extArray = explode('.', $temImage->name);
+                $ext = last($extArray);
 
+                $newImageName = $category->id . '.' . $ext;
+                $sPath = public_path() . '/temp/' . $temImage->name;
+                $dPath = public_path() . '/uploads/category/' . $newImageName;
+
+                File::copy($sPath, $dPath);
+
+                // generate image thumbnail
+                try {
+                    $img = Image::make($sPath);
+                    $img->resize(450, 600);
+                    $img->save($dPath);
+                } catch (\Exception $e) {
+                    // Log or handle the exception
+                    \Illuminate\Support\Facades\Log::error('Image Resize and Save Exception: ' . $e->getMessage());
+                }
+                $category->image = $newImageName;
+                $category->save();
+            }
             session()->flash('success', 'Category added successfully');
             return response()->json([
                 'status' => true,

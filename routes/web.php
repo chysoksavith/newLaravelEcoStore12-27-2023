@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\admin\HomeController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\AdminLoginController;
+use App\Http\Controllers\admin\TempImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,5 +63,8 @@ Route::group(['prefix' => 'admin'], function () {
             'status' => true,
             'slug' => $slug
         ]);
-    })->name('getSlug');//end method;
+    })->name('getSlug'); //end method;
+    // temp-image-create
+
+    Route::post('/upload-temp-image', [TempImageController::class, 'store'])->name('temp-images-create');
 });

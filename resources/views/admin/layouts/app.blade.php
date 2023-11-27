@@ -14,6 +14,8 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('admin-assets/css/adminlte.min.css') }} ">
     <link rel="stylesheet" href=" {{ asset('admin-assets/css/custom.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.0/dropzone.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -35,6 +37,7 @@
 
     </div>
     <!-- ./wrapper -->
+
     <!-- jQuery -->
     <script src="{{ asset('admin-assets/plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap 4 -->
@@ -51,7 +54,9 @@
             }
         });
     </script>
-
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.2/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.0/dropzone.js"></script>
     @yield('customJs')
 </body>
 
