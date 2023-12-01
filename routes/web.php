@@ -48,9 +48,9 @@ Route::group(['prefix' => 'admin'], function () {
             Route::get('/categories', 'index')->name('category.index');
             Route::get('/categories/create', 'create')->name('category.create');
             Route::post('/categories', 'store')->name('category.store');
-            Route::get('/categories/edit/:{id}', 'edit')->name('category.edit');
-            Route::put('/categories/update', 'update')->name('category.update');
-            Route::delete('/categories/destroy', 'destroy')->name('category.destroy');
+            Route::get('/categories/{category}/edit', 'edit')->name('category.edit');
+            Route::put('/categories/{category}', 'update')->name('category.update');
+            Route::delete('/categories/{category}', 'destroy')->name('category.destroy');
         });
     });
     // get slug
