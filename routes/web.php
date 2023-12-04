@@ -7,6 +7,8 @@ use App\Http\Controllers\admin\HomeController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\AdminLoginController;
 use App\Http\Controllers\admin\brandController;
+use App\Http\Controllers\admin\ProductSubCategoryController;
+use App\Http\Controllers\admin\ProdutController;
 use App\Http\Controllers\admin\SubCategoryController;
 use App\Http\Controllers\admin\TempImageController;
 
@@ -62,6 +64,15 @@ Route::group(['prefix' => 'admin'], function () {
             Route::delete('/brand/{brandId}', 'destroy')->name('brand.destroy');
 
         });
+        // product
+        Route::controller(ProdutController::class)->group(function(){
+            Route::get('/product', 'index')->name('product.index');
+            Route::get('/product/create', 'create')->name('product.create');
+            Route::post('/product/store', 'store')->name('product.store');
+
+        });
+        //sub product category
+        Route::get('/product-subcategories', [ProductSubCategoryController::class, 'index'])->name('product-subcategories.index');
     });
     // get slug
     Route::get('/getSlug', function (Request $request) {
