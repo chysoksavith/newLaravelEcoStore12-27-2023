@@ -6,18 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\admin\HomeController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\AdminLoginController;
+use App\Http\Controllers\admin\brandController;
+use App\Http\Controllers\admin\SubCategoryController;
 use App\Http\Controllers\admin\TempImageController;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::get('/', function () {
     return view('welcome');
@@ -43,7 +34,6 @@ Route::group(['prefix' => 'admin'], function () {
         });
 
         // Category
-
         Route::controller(CategoryController::class)->group(function () {
             Route::get('/categories', 'index')->name('category.index');
             Route::get('/categories/create', 'create')->name('category.create');
@@ -51,6 +41,26 @@ Route::group(['prefix' => 'admin'], function () {
             Route::get('/categories/{category}/edit', 'edit')->name('category.edit');
             Route::put('/categories/{category}', 'update')->name('category.update');
             Route::delete('/categories/{category}', 'destroy')->name('category.destroy');
+        });
+        // sub category
+        Route::controller(SubCategoryController::class)->group(function(){
+            Route::get('/sub-categories', 'index')->name('sub-category.index');
+            Route::get('/sub-categories/create', 'create')->name('sub-category.create');
+            Route::post('/sub-categories/store', 'store')->name('sub-category.store');
+            Route::get('/sub-categories/{subCategory}/edit', 'edit')->name('sub-category.edit');
+            Route::put('/sub-categories/{subCategory}', 'update')->name('sub-category.update');
+            Route::delete('/sub-categories/{subCategory}', 'destroy')->name('sub-category.destroy');
+
+        });
+        // brand
+        Route::controller(brandController::class)->group(function(){
+            Route::get('/brand', 'index')->name('brand.index');
+            Route::get('/brand/create', 'create')->name('brand.create');
+            Route::post('/brand/store', 'store')->name('brand.store');
+            Route::get('/brand/{brandId}/edit', 'edit')->name('brand.edit');
+            Route::put('/brand/{brandId}', 'update')->name('brand.update');
+            Route::delete('/brand/{brandId}', 'destroy')->name('brand.destroy');
+
         });
     });
     // get slug

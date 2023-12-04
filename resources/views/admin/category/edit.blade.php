@@ -61,7 +61,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="status">Status</label>
-                                    <select name="status" class="form-control" id="status">
+                                    <select name="status" class="form-select" id="status">
                                         <option value="1" {{ $category->status == 1 ? 'selected' : '' }}>Action
                                         </option>
                                         <option value="0" {{ $category->status == 0 ? 'selected' : '' }}>Block

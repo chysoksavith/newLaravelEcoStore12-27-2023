@@ -7,6 +7,7 @@ use App\Models\TempImage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Validator;
 
@@ -141,7 +142,7 @@ class CategoryController extends Controller
     {
         $category = Category::find($categoryId);
         if (empty($category)) {
-            $request->session()->flash('error', 'Category not found');
+            Session::flash('error', 'Category not found');
             return response()->json([
                 'status' => true,
                 'message' => 'Category not found '
