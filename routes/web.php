@@ -7,6 +7,7 @@ use App\Http\Controllers\admin\HomeController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\AdminLoginController;
 use App\Http\Controllers\admin\brandController;
+use App\Http\Controllers\admin\ProductImageController;
 use App\Http\Controllers\admin\ProductSubCategoryController;
 use App\Http\Controllers\admin\ProdutController;
 use App\Http\Controllers\admin\SubCategoryController;
@@ -69,10 +70,19 @@ Route::group(['prefix' => 'admin'], function () {
             Route::get('/product', 'index')->name('product.index');
             Route::get('/product/create', 'create')->name('product.create');
             Route::post('/product', 'store')->name('product.store');
+            Route::get('/product/{productId}/edit', 'edit')->name('product.edit');
+            Route::put('/product/{productId}', 'update')->name('product.update');
+            Route::delete('/product/{productId}', 'destroy')->name('product.destroy');
 
         });
         //sub product category
         Route::get('/product-subcategories', [ProductSubCategoryController::class, 'index'])->name('product-subcategories.index');
+        // image update
+        Route::controller(ProductImageController::class)->group(function(){
+            Route::post('/product-image/update', 'update')->name('product-images.update');
+            Route::delete('/product-image', 'destroy')->name('product-images.delete');
+
+        });
     });
     // get slug
     Route::get('/getSlug', function (Request $request) {
