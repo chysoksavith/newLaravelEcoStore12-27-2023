@@ -12,14 +12,24 @@ use App\Http\Controllers\admin\ProductSubCategoryController;
 use App\Http\Controllers\admin\ProdutController;
 use App\Http\Controllers\admin\SubCategoryController;
 use App\Http\Controllers\admin\TempImageController;
+use App\Http\Controllers\frontEnd\FrontController;
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+// front end
+
+Route::controller(FrontController::class)->group(function(){
+    Route::get('/', 'index')->name('front.home');
+    Route::get('/homePage','homeIndex')->name('front.indexPage');
 });
 
 
 
 
+
+// backEnd
 Route::group(['prefix' => 'admin'], function () {
     Route::group(['middleware' => 'admin.guest'], function () {
         //
